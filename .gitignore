@@ -27,3 +27,5 @@ npm-debug.log*
 Thumbs.db
 # Temporary test artifact
 backend/invalid-test.pdf
+# Temporary package backups
+*.backup
