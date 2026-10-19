@@ -18,7 +18,8 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const crypto = require("crypto");
-const fs = require("fs/promises");
+const fs = require("fs");
+const fsp = require("fs/promises");
 
 const Document = require("../models/Document");
 const { redisClient } = require("../config/redis");
@@ -27,11 +28,14 @@ const router = express.Router();
 
 // Maximum allowed PDF size: 20 MiB
 const MAX_FILE_SIZE = 20 * 1024 * 1024;
+// Ensure the upload directory exists before Multer saves a PDF.
+const uploadDir = path.join(__dirname, "../../uploads");
+fs.mkdirSync(uploadDir, { recursive: true });
 
 // Store uploaded PDFs in backend/uploads/
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, "../../uploads"));
+    cb(null, uploadDir);
     },
 
     filename: (req, file, cb) => {
@@ -163,7 +167,7 @@ router.post("/", (req, res, next) => {
 
             if (req.file?.path) {
                 try {
-                    await fs.unlink(req.file.path);
+                    await fsp.unlink(req.file.path);
                 } catch (cleanupError) {
                     if (cleanupError.code !== "ENOENT") {
                         console.error(
