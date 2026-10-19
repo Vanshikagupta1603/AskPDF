@@ -101,6 +101,10 @@ router.post("/", (req, res, next) => {
             });
         }
 
+        console.log("Upload directory:", uploadDir);
+        console.log("Uploaded file path:", req.file.path);
+        console.log("Uploaded file exists:", fs.existsSync(req.file.path));
+
         // Create the document record in MongoDB
         document = await Document.create({
             filename: req.file.filename,
