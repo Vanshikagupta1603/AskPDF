@@ -13,6 +13,7 @@ const jobRoutes = require("./routes/jobRoutes");
 const cleanupStaleJobs = require("./services/staleJobCleanup");
 
 const app = express();
+app.set("trust proxy", 1);
 const PORT = process.env.PORT || 5000;
 
 // Log HTTP request details when each response finishes.
