@@ -278,7 +278,8 @@ const startWorker = async () => {
                 }, 30 * 1000);
 
                 // Stage 2: Extract PDF text.
-                const pdfBuffer = fs.readFileSync(document.filePath);
+                const pdfPath = path.join(__dirname, "../../uploads", document.filename);
+                const pdfBuffer = fs.readFileSync(pdfPath);
 
                 const parser = new PDFParse({
                     data: pdfBuffer
