@@ -2,8 +2,17 @@ import time
 import json
 import streamlit as st
 import requests
+import os
 
-BACKEND_URL = "http://localhost:5000"
+BACKEND_URL = os.getenv("BACKEND_URL")
+
+if not BACKEND_URL:
+    try:
+        BACKEND_URL = st.secrets["BACKEND_URL"]
+    except Exception:
+        BACKEND_URL = "http://localhost:5000"
+
+BACKEND_URL = BACKEND_URL.rstrip("/")
 
 st.set_page_config(
     page_title="AskPDF",
