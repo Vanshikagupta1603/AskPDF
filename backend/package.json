@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.js",
-    "worker": "node src/worker/pdfWorker.js"
-  },
+  "start": "node src/server.js",
+  "dev": "nodemon src/server.js",
+  "worker": "node src/worker/pdfWorker.js"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
